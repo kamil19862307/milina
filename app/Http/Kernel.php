@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\LogMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -14,13 +15,15 @@ class Kernel extends HttpKernel
      * @var array<int, class-string|string>
      */
     protected $middleware = [
-        // \App\Http\Middleware\TrustHosts::class,
-        \App\Http\Middleware\TrustProxies::class,
+        // \App\Http\Middleware\TrustHosts::class,//Можно на небольших проектах закомментить
+//        \App\Http\Middleware\TrustProxies::class,//Можно на небольших проектах закомментить
         \Illuminate\Http\Middleware\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+
+//        \App\Http\Middleware\LogMiddleware::class,// включает логи для всех запросов, laravel.log растёт не по часам
     ];
 
     /**
@@ -43,6 +46,10 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'test' => [
+            // Проверил работоспасобность
+          LogMiddleware::class,
+        ],
     ];
 
     /**
@@ -63,5 +70,9 @@ class Kernel extends HttpKernel
         'signed' => \App\Http\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+        'active' => \App\Http\Middleware\ActiveMiddleware::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'token' => \App\Http\Middleware\TokenMiddleware::class,
     ];
 }

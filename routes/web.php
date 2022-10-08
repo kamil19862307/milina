@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\Posts\CommentController;
 use App\Http\Middleware\LogMiddleware;
+use App\Models\Currency;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\DependencyInjection\RegisterControllerArgumentLocatorsPass;
 
@@ -19,7 +20,14 @@ use Symfony\Component\HttpKernel\DependencyInjection\RegisterControllerArgumentL
 //Route::get('/', function () {
 //    return view('welcome');
 //});
-Route::get('/', [MainController::class, 'index'])->name('home');
+Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('about', [MainController::class, 'about'])->name('about');
+Route::post('about-store', [MainController::class, 'about_store'])->name('about_store');
+Route::get('what-we-do', [MainController::class, 'what_we_do'])->name('what-we-do');
+Route::get('pricing', [MainController::class, 'pricing'])->name('pricing');
+Route::get('contact', [MainController::class, 'contact'])->name('contact');
+Route::post('contact', [MainController::class, 'contact_store'])->name('contact.store');
+Route::get('calendar', [MainController::class, 'calendar'])->name('calendar');
 
 Route::get('default', TestController::class)->name('home.default');
 

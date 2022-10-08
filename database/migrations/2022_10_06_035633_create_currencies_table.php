@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id()->from(1234);
+        Schema::create('currencies', function (Blueprint $table) {
+            $table->string('id')->unique();
             $table->timestamps();
 
             $table->string('name');
+            $table->decimal('price')->unsigned();// Для цен и валют decimal более удобный тип данных, не округляет значения
             $table->boolean('active')->default(true);
-            $table->boolean('admin')->default(false);
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->integer('sort')->default(999);
+
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('currencies');
     }
 };

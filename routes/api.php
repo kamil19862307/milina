@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\PostController;
 //use Illuminate\Http\Request;
+use App\Models\Currency;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('posts', [PostController::class, 'index'])->name('posts');
 Route::get('posts/{posts}', [PostController::class, 'show'])->name('posts.show');
 Route::get('posts/{posts}/like', [PostController::class, 'like'])->name('posts.like');
+
+Route::get('currency', function (){
+    return Currency::first();
+});
